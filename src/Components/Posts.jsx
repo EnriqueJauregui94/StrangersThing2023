@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../Style/Posts.css';
 import Delete from './Delete';
+//
 
 const APIURL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D';
 
@@ -9,7 +10,6 @@ function Posts() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fetch posts when the component mounts
         async function fetchPosts() {
             try {
                 const response = await fetch(`${APIURL}/posts`);
@@ -35,12 +35,11 @@ function Posts() {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Add any necessary authentication headers here
                 },
             });
 
             if (response.ok) {
-                // Post deleted successfully, update the state to remove the deleted post
+                // Post deleted successfully
                 setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
             } else {
                 console.error('Failed to delete post');
