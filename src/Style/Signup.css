@@ -1,0 +1,60 @@
+/* Style for the signup container */
+.signup-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+    padding: 20px;
+    width: 300px;
+    background-color: #000000;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #ccc;
+}
+
+/* Style for form elements (labels and inputs) */
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"] {
+    /* Add input[type="email"] to select email inputs */
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+/* Style for the signup button */
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Style for error messages */
+.error-message {
+    color: #ff0000;
+    margin-top: 10px;
+}
+
+/* Style for success messages */
+.success-message {
+    color: #009900;
+    margin-top: 10px;
+}
