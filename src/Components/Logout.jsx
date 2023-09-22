@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import '../Style/Logout.css'
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom for navigation
+import '../Style/Logout.css';
 
 function Logout() {
     const [isLoggedOut, setIsLoggedOut] = useState(false);
 
     const handleLogout = () => {
         setIsLoggedOut(true);
-
     };
 
     return (
@@ -17,7 +17,14 @@ function Logout() {
                     <button onClick={handleLogout}>Logout</button>
                 </>
             ) : (
-                <p>Successfully logged out!</p>
+                <>
+                    <p>Successfully logged out!</p>
+                    <p>
+                        <Link to="/login" className="login-link">
+                            Click Here To Log In!
+                        </Link>
+                    </p>
+                </>
             )}
         </div>
     );
