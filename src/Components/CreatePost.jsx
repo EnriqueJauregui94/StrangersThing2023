@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import '../Style/CreatePost.css';
 
-const BASE_URL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D';
+const APIURL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D/posts';
 
-function CreatePost() {
+function CreatePost({ authToken }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
@@ -18,34 +18,37 @@ function CreatePost() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Replace 'YOUR_AUTH_TOKEN_HERE' with the actual authentication token
-        const authToken = 'TOKEN';
-
         try {
-            const response = await fetch(`${BASE_URL}/posts`, {
+            const response = await fetch(`${APIURL}/posts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${Token}`, // Include the token here
+                    'Authorization': `Bearer ${authToken}`,
                 },
-                body: JSON.stringify({ title, content }),
+                body: JSON.stringify({
+                    post: {
+                        title: "My favorite stuffed animal",
+                        description: "This is a pooh doll from 1973. It has been carefully taken care of since I first got it.",
+                        price: "$480.00",
+                        willDeliver: true
+                    }
+                })
             });
+            const result = await response.json();
+            console.log('API Response:', response);
+
 
             if (response.ok) {
-                // Post was successfully created
                 console.log('Post created successfully');
-                // You can reset the form fields here if needed
                 setTitle('');
                 setContent('');
             } else {
-                // Handle error cases
                 console.error('Failed to create post');
             }
         } catch (error) {
             console.error('Error:', error);
         }
     };
-
 
     return (
         <div className="create-post-container">

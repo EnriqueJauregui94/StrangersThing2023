@@ -2,29 +2,45 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../Style/Login.css';
 
-const Login = () => {
+const BASE_URL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D';
+
+const Login = ({ onLogin }) => {
     const [error, setError] = useState(null);
-    const [successMessage, setSuccessMessage] = useState(null);
-    const [userData, setUserData] = useState(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D/users/login', {
+            const response = await fetch(`${BASE_URL}/users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ user: { username, password } })
+                body: JSON.stringify({
+                    user: {
+                        username: 'superman27',
+                        password: 'krypt0n0rbust',
+                    },
+                }),
             });
-            const result = await response.json();
-            setSuccessMessage(result.message);
-            setUserData(result.data);
-            console.log(result);
-        } catch (error) {
-            setError(error.message);
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log(result);
+                if (result.data && result.data.token) {
+                    const authToken = result.data.token;
+                    onLogin(authToken);
+                } else {
+                    setError('Token not found in response.');
+                }
+            } else {
+                const errorResponse = await response.json();
+                setError(errorResponse.error.message || 'Authentication failed.');
+            }
+        } catch (err) {
+            setError('An error occurred during login.');
+            console.error(err);
         }
     }
 
@@ -62,6 +78,6 @@ const Login = () => {
             {error && <div className="error-message">{error}</div>}
         </div>
     );
-}
+};
 
 export default Login;

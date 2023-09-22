@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Style/Delete.css';
 
-const APIURL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D';
+const APIURL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D/delete';
 
 const Delete = ({ postId, authToken }) => {
     const handleDelete = async () => {
@@ -13,6 +13,9 @@ const Delete = ({ postId, authToken }) => {
                     'Authorization': `Bearer ${authToken}`,
                 },
             });
+
+            console.log('Response Status:', response.status);
+
 
             if (response.ok) {
                 console.log('Post deleted successfully');
