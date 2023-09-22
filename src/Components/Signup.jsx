@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../Style/Signup.css';
 
+const APIURL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D/users/register';
+
 function SignupPage() {
     // State to hold user input
     const [formData, setFormData] = useState({
@@ -8,37 +10,31 @@ function SignupPage() {
         password: '',
     });
 
-    // State to store registration status and error message
     const [registrationStatus, setRegistrationStatus] = useState({
         success: false,
         error: '',
     });
 
-    // Function to handle form input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    // Function to handle form submission
     const handleSignup = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://api.example.com/signup', {
+            const response = await fetch(`${APIURL}users/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({ user: formData })
             });
 
             if (response.ok) {
-                // Successful registration
                 setRegistrationStatus({ success: true, error: '' });
-                // Redirect or perform other actions upon successful registration
             } else {
-                // Failed registration, handle the error response
                 const errorData = await response.json();
                 setRegistrationStatus({ success: false, error: errorData.message });
             }

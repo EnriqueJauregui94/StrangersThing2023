@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import '../Style/CreatePost.css';
 
-const APIURL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D/posts';
+const BASE_URL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D/posts';
 
-function CreatePost({ authToken }) {
+function CreatePost() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false); // Track success state
 
     const handleTitleChange = (e) => {
         setTitle(e.target.value);
@@ -18,8 +19,10 @@ function CreatePost({ authToken }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const authToken = 'TOKEN';
+
         try {
-            const response = await fetch(`${APIURL}/posts`, {
+            const response = await fetch(`${BASE_URL}/posts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,21 +30,20 @@ function CreatePost({ authToken }) {
                 },
                 body: JSON.stringify({
                     post: {
-                        title: "My favorite stuffed animal",
-                        description: "This is a pooh doll from 1973. It has been carefully taken care of since I first got it.",
+                        title,
+                        description: content, // Use content for description
                         price: "$480.00",
                         willDeliver: true
                     }
                 })
             });
-            const result = await response.json();
-            console.log('API Response:', response);
-
 
             if (response.ok) {
+                // Post was successfully created
                 console.log('Post created successfully');
                 setTitle('');
                 setContent('');
+                setIsSuccess(true); // Set success state to true
             } else {
                 console.error('Failed to create post');
             }
@@ -77,6 +79,10 @@ function CreatePost({ authToken }) {
                     <button type="submit">Create Post</button>
                 </div>
             </form>
+
+            {isSuccess && (
+                <p style={{ color: 'green' }}>Post Created Successfully!</p>
+            )}
         </div>
     );
 }

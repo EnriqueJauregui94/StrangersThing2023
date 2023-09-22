@@ -1,12 +1,12 @@
 import React from 'react';
 import '../Style/Delete.css';
 
-const APIURL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D/delete';
+const APIURL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D';
 
-const Delete = ({ postId, authToken }) => {
+const Delete = ({ postId, authToken, onDeleteSuccess, onDeleteError }) => {
     const handleDelete = async () => {
         try {
-            const response = await fetch(`${APIURL}/posts/${postId}`, {
+            const response = await fetch(`${APIURL}/${postId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -14,18 +14,20 @@ const Delete = ({ postId, authToken }) => {
                 },
             });
 
-            console.log('Response Status:', response.status);
-
-
             if (response.ok) {
                 console.log('Post deleted successfully');
+                onDeleteSuccess();
             } else {
                 console.error('Failed to delete post');
+                onDeleteError();
             }
         } catch (error) {
             console.error('Error:', error);
+            onDeleteError();
         }
     };
+
+
 
     return (
         <button className="delete-button" onClick={handleDelete}>

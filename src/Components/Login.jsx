@@ -18,10 +18,7 @@ const Login = ({ onLogin }) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    user: {
-                        username: 'superman27',
-                        password: 'krypt0n0rbust',
-                    },
+                    body: JSON.stringify({ user: formData })
                 }),
             });
 
