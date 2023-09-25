@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../Style/Signup.css';
 
-const APIURL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D/users/register';
+const APIURL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D';
 
 function SignupPage() {
     // State to hold user input
