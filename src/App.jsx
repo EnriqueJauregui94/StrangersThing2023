@@ -12,7 +12,7 @@ import './Style/Logout.css';
 import './Style/Posts.css';
 import './Style/Signup.css';
 import './App.css';
-import './Style/NavBar.css';
+import './Style/Navbar.css';
 import './Style/Login.css';
 import './Style/CreatePost.css';
 
