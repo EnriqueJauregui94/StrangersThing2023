@@ -1,4 +1,10 @@
 /* CreatePost.css */
+
+body {
+    background-image: url("https://www.nme.com/wp-content/uploads/2022/09/Stranger_Things_Living-Room.jpg");
+
+}
+
 .create-post-container {
     display: flex;
     flex-direction: column;
@@ -6,7 +12,7 @@
     margin: 20px auto;
     padding: 20px;
     width: 300px;
-    background-color: #000000;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMExqJ2J-kA34eH9EgFp42S_QqWqJy28Yd7g&usqp=CAU");
     border: 1px solid #ff0000;
     border-radius: 5px;
     box-shadow: 0px 0px 5px #ccc;

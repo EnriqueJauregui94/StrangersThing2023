@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom for navigation
-import '../Style/Logout.css';
+import { Link } from 'react-router-dom'; 
 
 function Logout() {
     const [isLoggedOut, setIsLoggedOut] = useState(false);

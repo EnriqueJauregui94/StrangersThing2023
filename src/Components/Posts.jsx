@@ -41,6 +41,7 @@ function Posts() {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}` // Use your actual authentication token
                 },
             });
 
@@ -48,12 +49,14 @@ function Posts() {
                 const updatedPosts = posts.filter((post) => post._id !== postId);
                 setPosts(updatedPosts);
             } else {
-                console.error('Failed to delete post');
+                const errorData = await response.json();
+                console.error('Failed to delete post:', errorData);
             }
         } catch (error) {
             console.error('Error:', error);
         }
     };
+
 
     const filteredPosts = posts.filter((post) =>
         post.title.toLowerCase().includes(searchInput.toLowerCase())
@@ -90,8 +93,15 @@ function Posts() {
                                 <Link to="/createpost">
                                     <button className="create-post-button">Create Post</button>
                                 </Link>
-                                <span className="button-gap" />
-                                <Delete handleDelete={() => handleDeletePost(post._id)} />
+                                <Link to="/messages">
+                                    <button className="send-message-button">Send Message</button>
+                                </Link>
+                                <button
+                                    className="delete-button"
+                                    onClick={() => handleDeletePost(post._id)}
+                                >
+                                    Delete
+                                </button>
                             </div>
                         </li>
                     ))}

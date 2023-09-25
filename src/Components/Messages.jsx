@@ -9,17 +9,17 @@ const Messages = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loginMessage, setLoginMessage] = useState('');
-    const [messages, setMessages] = useState([]); // Store fetched messages
-    const [showMessages, setShowMessages] = useState(false); // Initialize to false
+    const [messages, setMessages] = useState([]);
+    const [showMessages, setShowMessages] = useState(false);
     const [loggedInMessage, setLoggedInMessage] = useState('');
-    const [postMessage, setPostMessage] = useState(''); // State for posted message
+    const [postMessage, setPostMessage] = useState('');
 
     const myData = async () => {
         try {
             const response = await fetch(`${BASE_URL}/users/me`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authToken}` // Use the stored token
+                    'Authorization': `Bearer ${authToken}`
                 },
             });
             const result = await response.json();
@@ -35,7 +35,7 @@ const Messages = () => {
             const response = await fetch(`${BASE_URL}/posts/5e8929ddd439160017553e06/messages`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authToken}` // Use the stored token
+                    'Authorization': `Bearer ${authToken}`
                 },
             });
             const result = await response.json();
@@ -47,26 +47,23 @@ const Messages = () => {
     };
 
     const handleLogin = async () => {
-        // Simulate a login action (set the authToken to your actual token)
-        // For a real application, you would send the username and password to the server for authentication
         if (username && password) {
-            setAuthToken('your-actual-auth-token-here');
+            setAuthToken('${BASE_URL}/posts/5e8929ddd439160017553e06/messages');
             setIsLoggedIn(true);
-            setShowMessages(true); // Show messages after successful login
+            setShowMessages(true);
             setLoginMessage('Successfully logged in');
-            setLoggedInMessage('Successfully logged in'); // Set the logged-in message
-            setPostMessage('Successfully logged in'); // Set the post-login message
+            setLoggedInMessage('Successfully logged in');
+            setPostMessage('Successfully logged in');
             await myData();
-            await fetchMessages(); // Fetch messages after login
+            await fetchMessages();
         } else {
             setLoginMessage('Please enter both username and password');
         }
     };
 
-    // Use useEffect to fetch data when isLoggedIn is true
     useEffect(() => {
         if (isLoggedIn) {
-            fetchMessages(); // Fetch and display messages after login
+            fetchMessages();
         }
     }, [isLoggedIn]);
 

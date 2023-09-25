@@ -7,10 +7,8 @@ function CreatePost() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
-    const [authToken, setAuthToken] = useState(''); // State to store the authentication token
-
+    const [authToken, setAuthToken] = useState(''); 
     useEffect(() => {
-        // Fetch the authentication token when the component mounts
         fetchAuthToken();
     }, []);
 
@@ -28,13 +26,12 @@ function CreatePost() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Include any necessary headers for authentication here
                 },
             });
 
             if (response.ok) {
                 const data = await response.json();
-                setAuthToken(data.token); // Set the authentication token in state
+                setAuthToken(data.token); 
             } else {
                 console.error('Failed to fetch authentication token.');
             }
@@ -51,7 +48,7 @@ function CreatePost() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authToken}`, // Use the obtained authentication token
+                    'Authorization': `Bearer ${authToken}`, 
                 },
                 body: JSON.stringify({
                     post: {
