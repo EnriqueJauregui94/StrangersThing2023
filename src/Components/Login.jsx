@@ -32,7 +32,7 @@ const Login = ({ onLogin }) => {
                 if (result.data && result.data.token) {
                     const authToken = result.data.token;
                     onLogin(authToken);
-                    setIsLoggedIn(true); // Set login status to true
+                    setIsLoggedIn(true);
                 } else {
                     setError('Token not found in response.');
                 }
