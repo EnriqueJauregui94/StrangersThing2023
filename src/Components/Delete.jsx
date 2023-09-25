@@ -27,8 +27,6 @@ const Delete = ({ postId, authToken, onDeleteSuccess, onDeleteError }) => {
         }
     };
 
-
-
     return (
         <button className="delete-button" onClick={handleDelete}>
             Delete

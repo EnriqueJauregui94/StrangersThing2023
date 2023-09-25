@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../Style/CreatePost.css';
 
 const BASE_URL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-D/posts';
@@ -6,7 +6,13 @@ const BASE_URL = 'https://strangers-things.herokuapp.com/api/2302-ACC-ET-WEB-PT-
 function CreatePost() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [isSuccess, setIsSuccess] = useState(false); // Track success state
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [authToken, setAuthToken] = useState(''); // State to store the authentication token
+
+    useEffect(() => {
+        // Fetch the authentication token when the component mounts
+        fetchAuthToken();
+    }, []);
 
     const handleTitleChange = (e) => {
         setTitle(e.target.value);
@@ -16,22 +22,41 @@ function CreatePost() {
         setContent(e.target.value);
     };
 
+    const fetchAuthToken = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/authToken`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Include any necessary headers for authentication here
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setAuthToken(data.token); // Set the authentication token in state
+            } else {
+                console.error('Failed to fetch authentication token.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const authToken = 'TOKEN';
 
         try {
             const response = await fetch(`${BASE_URL}/posts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authToken}`,
+                    'Authorization': `Bearer ${authToken}`, // Use the obtained authentication token
                 },
                 body: JSON.stringify({
                     post: {
                         title,
-                        description: content, // Use content for description
+                        description: content,
                         price: "$480.00",
                         willDeliver: true
                     }
@@ -39,11 +64,10 @@ function CreatePost() {
             });
 
             if (response.ok) {
-                // Post was successfully created
                 console.log('Post created successfully');
                 setTitle('');
                 setContent('');
-                setIsSuccess(true); // Set success state to true
+                setIsSuccess(true);
             } else {
                 console.error('Failed to create post');
             }

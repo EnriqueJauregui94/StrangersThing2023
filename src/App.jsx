@@ -5,8 +5,10 @@ import CreatePost from './Components/CreatePost';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Posts from './Components/Posts';
-import Logout from './Components/Logout'
-import './Style/Logout.css'
+import Logout from './Components/Logout';
+import Messages from './Components/Messages';
+import './Style/Messages.css';
+import './Style/Logout.css';
 import './Style/Posts.css';
 import './Style/Signup.css';
 import './App.css';
@@ -24,6 +26,7 @@ function App() {
         <Route path="/posts" element={<Posts />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/messages" element={<Messages />} />
       </Routes>
     </div>
   );
